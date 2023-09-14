@@ -1,6 +1,6 @@
 import fp from "fastify-plugin";
 import CloseWithGrace from "close-with-grace";
-import { container } from "../infra/di.js";
+import { container } from "../../infra/di.js";
 
 /**
  *

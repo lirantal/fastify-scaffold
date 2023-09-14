@@ -11,7 +11,7 @@ export default async function appFramework(fastify, opts) {
 
   // Register app framework plugins
   fastify.register(autoload, {
-    dir: path.join(__dirname, "http"),
+    dir: path.join(__dirname, "http/plugins"),
     encapsulate: false,
     ignorePattern: /.*(test|spec).js/,
   });
