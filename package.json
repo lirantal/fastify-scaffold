@@ -1,0 +1,67 @@
+{
+  "name": "fastify-scaffold",
+  "version": "1.0.0",
+  "description": "Sample Fastify project starter",
+  "main": "server.js",
+  "scripts": {
+    "docker:build": "docker build -t app-api .",
+    "docker:up": "npm run docker:down && docker-compose -f docker-compose-exclude-api.yml up -d",
+    "docker:sh": "docker exec -it app-api /bin/sh",
+    "docker:down": "docker-compose -f docker-compose-exclude-api.yml down -v",
+    "docker:logs": "docker logs -f app-db",
+    "test": "node --test tests/ modules/ services/",
+    "test:watch": "node --watch --test tests/ modules/ services/",
+    "test:types": "tsc",
+    "dev": "npm run db:migrate && node --watch server.js",
+    "start": "npm run db:migrate && node server.js",
+    "db:migrations:create": "npx knex migrate:make -x mjs $1",
+    "db:migrate": "npx knex migrate:latest",
+    "db:seed:make": "npx knex seed:make -x mjs $1",
+    "db:seed": "npx knex seed:run"
+  },
+  "engines": {
+    "node": ">=20.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lirantal/fastify-scaffold.git"
+  },
+  "type": "module",
+  "author": "Liran Tal",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/lirantal/fastify-scaffold/issues"
+  },
+  "homepage": "https://github.com/lirantal/fastify-scaffold#readme",
+  "dependencies": {
+    "@fastify/auth": "^4.3.0",
+    "@fastify/autoload": "^5.7.1",
+    "@fastify/basic-auth": "^5.0.0",
+    "@fastify/cors": "^8.3.0",
+    "@fastify/env": "^4.2.0",
+    "@fastify/jwt": "^6.7.1",
+    "@fastify/swagger": "^8.6.0",
+    "@fastify/swagger-ui": "^1.9.3",
+    "awilix": "^8.0.1",
+    "bullmq": "^4.6.3",
+    "close-with-grace": "^1.2.0",
+    "env-schema": "^5.2.0",
+    "fast-jwt": "^3.0.0",
+    "fastify": "^4.10.2",
+    "fastify-plugin": "^4.4.0",
+    "knex": "^2.4.2",
+    "pg": "^8.11.1",
+    "pino": "^8.14.1",
+    "throng": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.4",
+    "docker-compose": "^0.24.1",
+    "is-ci": "^3.0.1",
+    "is-port-reachable": "^4.0.0",
+    "nock": "^13.3.1",
+    "pino-pretty": "^10.0.0",
+    "typescript": "^5.1.6"
+  },
+  "private": true
+}
