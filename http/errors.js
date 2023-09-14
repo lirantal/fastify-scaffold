@@ -7,6 +7,8 @@ import fp from "fastify-plugin";
  */
 async function plugin(server, opts) {
   server.setErrorHandler((error, request, reply) => {
+    const statusCode = error.statusCode || 500;
+
     request.log.error({
       message: error.message,
       type: error.type,
@@ -17,8 +19,8 @@ async function plugin(server, opts) {
       stack: error.stack,
     });
 
-    return reply.code(error.statusCode).send({
-      statusCode: error.statusCode,
+    return reply.code(statusCode).send({
+      statusCode: statusCode,
       message: error.message,
     });
   });
