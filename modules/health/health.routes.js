@@ -22,6 +22,7 @@ export default async function healthRoute(server, options) {
             properties: {
               echoText: { type: "string" },
               status: { type: "boolean" },
+              stats: { type: "array" },
               debugLevel: { type: "string" },
             },
           },

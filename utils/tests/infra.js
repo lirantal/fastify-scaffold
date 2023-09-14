@@ -1,5 +1,7 @@
 import AppFramework from "../../app.js";
-import { initConfig } from "../../services/core/config.js";
+import { initDI } from "../../infra/di.js";
+import { DatabaseManager } from "../../services/core/db.js";
+import { Config } from "../../services/core/Config.js";
 
 import Fastify from "fastify";
 import fastifyPlugin from "fastify-plugin";
@@ -19,11 +21,32 @@ const dockerComposeFilename = "docker-compose-tests.yml";
 
 const envFilePath = path.join(__dirname, "./.env");
 
+async function initDatabase(config) {
+  // Initialize the database
+  const database = new DatabaseManager(config);
+
+  // Ensure database connection is ready
+  await database.ping();
+
+  // Return the database instance
+  return database;
+}
+
 /**
  * Start a Fastify app instance
  */
-async function startApp(config) {
-  const app = Fastify();
+async function startApp() {
+  const config = await loadConfig();
+
+  // Initialize the database
+  const database = await initDatabase(config);
+
+  // Initialize DI
+  const diContainer = await initDI({ config, database });
+
+  const app = Fastify({
+    logger: diContainer.resolve("Logger"),
+  });
   app.register(fastifyPlugin(AppFramework), { config });
   return app.ready();
 }
@@ -31,25 +54,33 @@ async function startApp(config) {
 /**
  * Close a Fastify app
  */
-async function closeApp() {
+async function closeApp(app) {
   return app.close();
 }
 
-/**
- * Test harness setup
- */
-async function setUp() {
+async function loadConfig() {
+  const configManager = new Config();
+
   const dotEnvFilePath = envFilePath
     ? envFilePath
     : path.join(__dirname, ".env");
 
-  const config = await initConfig({
+  const config = await configManager.load({
     envSchemaOptions: {
       dotenv: {
         path: dotEnvFilePath,
       },
     },
   });
+
+  return config;
+}
+
+/**
+ * Test harness setup
+ */
+async function setUp() {
+  const config = await loadConfig();
 
   console.log("Test harness: bootstrapping environment\n");
   const isDatabaseRunning = await isPortReachable(config.DB_PORT, {

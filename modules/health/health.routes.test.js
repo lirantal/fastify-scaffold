@@ -1,24 +1,20 @@
 import test from "node:test";
 import assert from "node:assert";
 import { generateToken } from "../../utils/token.js";
-import AppFramework from "../../app.js";
-import Fastify from "fastify";
-import fastifyPlugin from "fastify-plugin";
+import { startApp, closeApp } from "../../utils/tests/infra.js";
 
-// @TODO refactor the per-test headers injection into a global hook in test.before
-const authorizationToken = generateToken();
-
-test.describe("Health Routes", () => {
+test.describe("Health Routes", async () => {
   let app;
 
+  // @TODO refactor the per-test headers injection into a global hook in test.before
+  const authorizationToken = await generateToken();
+
   test.before(async () => {
-    app = Fastify();
-    app.register(fastifyPlugin(AppFramework));
-    await app.ready();
+    app = await startApp();
   });
 
   test.after(async () => {
-    await app.close();
+    await closeApp(app);
   });
 
   test("GET /health responds with 200 OK", async () => {
