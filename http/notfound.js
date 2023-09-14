@@ -11,7 +11,7 @@ async function plugin(server, opts) {
   server.setNotFoundHandler((request, reply) => {
     request.log.error({
       message: `Route ${request.method}:${request.url} not found`,
-      code: HTTP_NOT_FOUND,
+      code: "HTTP_404",
       name: "Not found",
     });
 
