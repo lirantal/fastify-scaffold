@@ -2,7 +2,14 @@ import EnvSchema from "env-schema";
 
 const schema = {
   type: "object",
-  required: ["PORT", "HOST", "REDIS_URL", "JWT_SECRET", "SENTRY_DSN"],
+  required: [
+    "PORT",
+    "HOST",
+    "REDIS_URL",
+    "JWT_SECRET",
+    "SENTRY_DSN",
+    "BETTERSTACK_SOURCE_TOKEN",
+  ],
   anyOf: [
     {
       required: ["DB_HOST", "DB_PORT", "DB_USER", "DB_PASSWORD", "DB_NAME"],
@@ -70,6 +77,9 @@ const schema = {
       default: "admin",
     },
     SENTRY_DSN: {
+      type: "string",
+    },
+    BETTERSTACK_SOURCE_TOKEN: {
       type: "string",
     },
   },

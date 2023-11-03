@@ -43,6 +43,7 @@
     "@fastify/swagger": "^8.6.0",
     "@fastify/swagger-ui": "^1.9.3",
     "@immobiliarelabs/fastify-sentry": "^7.1.1",
+    "@logtail/pino": "^0.4.12",
     "@sentry/integrations": "^7.77.0",
     "@sentry/node": "^7.77.0",
     "@sentry/profiling-node": "^1.2.6",
