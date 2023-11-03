@@ -19,9 +19,14 @@ async function plugin(server, opts) {
       stack: error.stack,
     });
 
+    // hide the error message which could leak
+    // sensitive information
+    const errorMessage =
+      statusCode == 500 ? "Internal Server Error" : error.message;
+
     return reply.code(statusCode).send({
       statusCode: statusCode,
-      message: error.message,
+      message: errorMessage,
     });
   });
 }
