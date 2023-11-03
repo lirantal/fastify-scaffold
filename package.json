@@ -42,6 +42,10 @@
     "@fastify/jwt": "^6.7.1",
     "@fastify/swagger": "^8.6.0",
     "@fastify/swagger-ui": "^1.9.3",
+    "@immobiliarelabs/fastify-sentry": "^7.1.1",
+    "@sentry/integrations": "^7.77.0",
+    "@sentry/node": "^7.77.0",
+    "@sentry/profiling-node": "^1.2.6",
     "awilix": "^8.0.1",
     "bullmq": "^4.6.3",
     "close-with-grace": "^1.2.0",
@@ -52,6 +56,7 @@
     "knex": "^2.4.2",
     "pg": "^8.11.1",
     "pino": "^8.14.1",
+    "sentry": "^0.1.2",
     "throng": "^5.0.0"
   },
   "devDependencies": {

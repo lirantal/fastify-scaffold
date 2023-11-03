@@ -2,7 +2,7 @@ import EnvSchema from "env-schema";
 
 const schema = {
   type: "object",
-  required: ["PORT", "HOST", "REDIS_URL", "JWT_SECRET"],
+  required: ["PORT", "HOST", "REDIS_URL", "JWT_SECRET", "SENTRY_DSN"],
   anyOf: [
     {
       required: ["DB_HOST", "DB_PORT", "DB_USER", "DB_PASSWORD", "DB_NAME"],
@@ -68,6 +68,9 @@ const schema = {
     SWAGGER_PASSWORD: {
       type: "string",
       default: "admin",
+    },
+    SENTRY_DSN: {
+      type: "string",
     },
   },
 };
