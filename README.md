@@ -18,3 +18,7 @@ An opinionated Fastify starter project skeleton.
 
 ## Features:
 - User authentication
+
+## Contributing
+
+Please consult [CONTRIBUTING](./CONTRIBUTING.md) for guidelines on contributing to this project.
