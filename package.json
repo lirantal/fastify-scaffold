@@ -20,7 +20,8 @@
     "db:seed": "npx knex seed:run"
   },
   "engines": {
-    "node": ">=20.3.0"
+    "npm": ">=11.10.0",
+    "node": ">=24.0.0"
   },
   "repository": {
     "type": "git",
